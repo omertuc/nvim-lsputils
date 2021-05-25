@@ -85,7 +85,7 @@ local function get_relative_path(base_path, my_path)
 end
 
 local function handleGlobalVariable(var, opts)
-    if var == nil then return end
+    if var == nil or var == vim.NIL then return end
     opts.mode = var.mode or opts.mode
     opts.height = var.height or opts.height
     if opts.height == 0 then
