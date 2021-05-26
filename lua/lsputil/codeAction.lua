@@ -90,7 +90,6 @@ local code_action_handler = function(_,_,actions, _, _, _, customSelectionHandle
     if opts.width >= vim.api.nvim_win_get_width(0) - 6 then
       opts.width = vim.api.nvim_win_get_width(0) - 6
     end
-    print(opts.height, opts.width)
     opts.data = data
     actionModule.popup = popfix:new(opts)
     if not actionModule.popup then
