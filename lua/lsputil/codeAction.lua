@@ -83,7 +83,7 @@ local code_action_handler = function(_,_,actions, _, _, _, customSelectionHandle
         local currentLine = vim.fn.line('.')
         local firstVisibleLine = vim.fn.line('w0')
         local heightDiff = currentLine - firstVisibleLine
-        local height = vim.api.nvim_get_current_win(0)
+        local height = vim.api.nvim_get_current_win()
         opts.height = height - heightDiff - 2
       end
     end
@@ -94,11 +94,12 @@ local code_action_handler = function(_,_,actions, _, _, _, customSelectionHandle
     opts.data = data
     actionModule.popup = popfix:new(opts)
     if not actionModule.popup then
-	actionModule.actionBuffer = nil
+	    actionModule.actionBuffer = nil
+      return
     end
-    util.setFiletype(actionModule.popup.list.buffer, 'lsputil_codeaction_list')
+      util.setFiletype(actionModule.popup.list.buffer, 'lsputil_codeaction_list')
     if actionModule.popup.prompt then
-	util.setFiletype(actionModule.popup.prompt.buffer, 'lsputil_codeaction_prompt')
+	    util.setFiletype(actionModule.popup.prompt.buffer, 'lsputil_codeaction_prompt')
     end
     opts.data = nil
 end
