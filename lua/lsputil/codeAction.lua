@@ -83,8 +83,7 @@ local code_action_handler = function(_,_,actions, _, _, _, customSelectionHandle
         local currentLine = vim.fn.line('.')
         local firstVisibleLine = vim.fn.line('w0')
         local heightDiff = currentLine - firstVisibleLine
-        local height = vim.api.nvim_get_current_win()
-        opts.height = height - heightDiff - 2
+        opts.height = opts.height - heightDiff - 2
       end
     end
     if opts.width >= vim.api.nvim_win_get_width(0) - 6 then
