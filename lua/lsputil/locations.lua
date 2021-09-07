@@ -96,10 +96,11 @@ local function references_handler(_, _, locations,_,bufnr)
 end
 
 -- callback for lsp definition, implementation and declaration handler
-local definition_handler = function(_,_,locations, _, bufnr)
+local definition_handler = function(_,locations, ctx, _)
     if locations == nil or vim.tbl_isempty(locations) then
 	return
     end
+    local bufnr = ctx.bufnr
     if vim.tbl_islist(locations) then
 	if #locations > 1 then
 	    if action.popup then
