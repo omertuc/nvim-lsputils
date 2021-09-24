@@ -96,11 +96,11 @@ Add following to init.vim lua chunk as:
         end
 
         vim.lsp.handlers['textDocument/documentSymbol'] = function(_, _, result, _, bufn)
-            require('lsputil.locations').document_handler(nil, result, { bufnr = bufn }, nil)
+            require('lsputil.symbols').document_handler(nil, result, { bufnr = bufn }, nil)
         end
 
         vim.lsp.handlers['textDocument/symbol'] = function(_, _, result, _, bufn)
-            require('lsputil.locations').workspace_handler(nil, result, { bufnr = bufn }, nil)
+            require('lsputil.symbols').workspace_handler(nil, result, { bufnr = bufn }, nil)
         end
     end
 	EOF
