@@ -59,7 +59,7 @@ It can be installed with any plugin manager. For example with vim-plug:
 Add following to init.vim lua chunk as:
 
 	lua <<EOF
-    if vim.fn.has('nvim-0.6') == 1 then
+    if vim.fn.has('nvim-0.5.1') == 1 then
         vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
         vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
         vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
