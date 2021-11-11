@@ -2,30 +2,35 @@
 -- and line to highlight
 local function get_data_from_file(filename,startLine)
     local displayLine;
-    if startLine < 3 then
-	displayLine = startLine
-	startLine = 0
+
+    upperContext = 8
+    if startLine < upperContext + 1 then
+        displayLine = startLine
+        startLine = 0
     else
-	startLine = startLine - 2
-	displayLine = 2
+        startLine = startLine - upperContext
+        displayLine = upperContext
     end
     local uri = 'file://'..filename
     local bufnr = vim.uri_to_bufnr(uri)
+
     vim.fn.bufload(bufnr)
+    
     local data = vim.api.nvim_buf_get_lines(bufnr, startLine, startLine+8, false)
     if data == nil or vim.tbl_isempty(data) then
-	startLine = nil
+        startLine = nil
     else
-	local len = #data
-	startLine = startLine+1
-	for i = 1, len, 1 do
-	    data[i] = startLine..' '..data[i]
-	    startLine = startLine + 1
-	end
+        local len = #data
+        startLine = startLine+1
+        for i = 1, len, 1 do
+            data[i] = startLine..' '..data[i]
+            startLine = startLine + 1
+        end
     end
+
     return{
-	data = data,
-	line = displayLine
+        data = data,
+        line = displayLine
     }
 end
 

@@ -32,6 +32,10 @@ local keymaps = {
     }
 }
 
+function trim(s)
+  return s:match'^%s*(.*%S)%s*$' or ''
+end
+
 -- opts for popfix
 local function createOpts()
   local opts = {
@@ -69,11 +73,11 @@ local function references_handler(_, locations, ctx, _)
     local filename = vim.api.nvim_buf_get_name(bufnr)
     action.items = vim.lsp.util.locations_to_items(locations)
     for i, item in pairs(action.items) do
-	data[i] = item.text
+	data[i] = trim(item.text)
 	if filename ~= item.filename then
 	    local cwd = vim.fn.getcwd(0)..'/'
 	    local add = util.get_relative_path(cwd, item.filename)
-	    data[i] = data[i]..' - '..add
+	    data[i] = add..' - '..data[i]
 	end
         data[i] = data[i]:gsub("\n", "")
 	action.items.text = nil
@@ -114,8 +118,10 @@ local definition_handler = function(_,locations, ctx, _)
 	    for i, item in pairs(action.items) do
 		data[i] = item.text
 		if filename ~= item.filename then
+            -- Render
 		    local cwd = vim.fn.getcwd(0)..'/'
 		    local add = util.get_relative_path(cwd, item.filename)
+
 		    data[i] = data[i]..' - '..add
 		end
                 data[i] = data[i]:gsub("\n", "")
